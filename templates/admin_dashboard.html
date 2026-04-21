@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-bg-primary shadow">
+            <div class="card-body">
+                <h5 class="card-title">Students</h5>
+                <p class="card-text fs-4">{{ total_students }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-bg-success shadow">
+            <div class="card-body">
+                <h5 class="card-title">Companies</h5>
+                <p class="card-text fs-4">{{ total_companies }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-bg-warning shadow">
+            <div class="card-body">
+                <h5 class="card-title">Applications</h5>
+                <p class="card-text fs-4">{{ total_applications }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-bg-dark shadow">
+            <div class="card-body">
+                <h5 class="card-title">Drives</h5>
+                <p class="card-text fs-4">{{ total_drives }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <p><strong>Email:</strong> {{ email }}</p>
+
+        <div class="mt-3">
+            <a href="{{ url_for('manage_companies') }}" class="btn btn-primary me-2">Manage Companies</a>
+            <a href="{{ url_for('manage_drives') }}" class="btn btn-dark">Manage Drives</a>
+            <a href="{{ url_for('manage_students') }}" class="btn btn-success me-2">Search Students</a>
+            <a href="{{ url_for('search_companies') }}" class="btn btn-warning">Search Companies</a>
+            <a href="{{ url_for('admin_applications') }}" class="btn btn-secondary me-2">View Applications</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

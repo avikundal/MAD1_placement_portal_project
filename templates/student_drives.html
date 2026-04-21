@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Approved Drives{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Approved Placement Drives</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if drives %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Description</th>
+                        <th>Eligibility</th>
+                        <th>Deadline</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for drive in drives %}
+                    <tr>
+                        <td>{{ drive.id }}</td>
+                        <td>
+                            {% if companies.get(drive.company_id) %}
+                                {{ companies.get(drive.company_id).company_name }}
+                            {% else %}
+                                Unknown Company
+                            {% endif %}
+                        </td>
+                        <td>{{ drive.job_title }}</td>
+                        <td>{{ drive.job_description }}</td>
+                        <td>{{ drive.eligibility_criteria }}</td>
+                        <td>{{ drive.application_deadline }}</td>
+                        <td>
+                            {% if drive.id in applied_drive_ids %}
+                                <button class="btn btn-secondary btn-sm" disabled>Applied</button>
+                            {% else %}
+                                <a href="{{ url_for('apply_drive', drive_id=drive.id) }}" class="btn btn-success btn-sm">Apply</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No approved drives available right now.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

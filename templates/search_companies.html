@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Search Companies{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Search Companies</h2>
+
+<form method="GET" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Search by company name" value="{{ q }}">
+        <button class="btn btn-dark" type="submit">Search</button>
+    </div>
+</form>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if companies %}
+            <table class="table table-bordered table-striped">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company Name</th>
+                        <th>HR Contact</th>
+                        <th>Website</th>
+                        <th>Status</th>
+                        <th>Blacklisted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for company in companies %}
+                    <tr>
+                        <td>{{ company.id }}</td>
+                        <td>{{ company.company_name }}</td>
+                        <td>{{ company.hr_contact }}</td>
+                        <td>{{ company.website }}</td>
+                        <td>{{ company.approval_status }}</td>
+                        <td>{{ company.blacklisted }}</td>
+                        <td>
+                            <a href="{{ url_for('toggle_company_blacklist', company_id=company.id) }}" 
+                               class="btn btn-sm btn-warning">
+                                Toggle Blacklist
+                            </a>
+
+                            <a href="{{ url_for('toggle_user_active', user_id=company.user_id) }}" 
+                               class="btn btn-sm btn-danger">
+                                Toggle Active
+                            </a>
+                            <a href="{{ url_for('delete_company', company_id=company.id) }}" 
+                               class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('Are you sure?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        {% else %}
+            <p>No companies found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

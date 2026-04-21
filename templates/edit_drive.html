@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Edit Drive{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <div class="card-body">
+        <h2>Edit Drive</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Job Title</label>
+                <input type="text" name="job_title" class="form-control" value="{{ drive.job_title }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Job Description</label>
+                <textarea name="job_description" class="form-control" rows="4" required>{{ drive.job_description }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Eligibility Criteria</label>
+                <input type="text" name="eligibility_criteria" class="form-control" value="{{ drive.eligibility_criteria }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Application Deadline</label>
+                <input type="date" name="application_deadline" class="form-control" value="{{ drive.application_deadline }}" required>
+            </div>
+            <button type="submit" class="btn btn-dark">Update Drive</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}My Drives{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">My Placement Drives</h2>
+
+<div class="mb-3">
+    <a href="{{ url_for('create_drive') }}" class="btn btn-primary">Create New Drive</a>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if drives %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Job Title</th>
+                        <th>Eligibility</th>
+                        <th>Deadline</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for drive in drives %}
+                    <tr>
+                        <td>{{ drive.id }}</td>
+                        <td>{{ drive.job_title }}</td>
+                        <td>{{ drive.eligibility_criteria }}</td>
+                        <td>{{ drive.application_deadline }}</td>
+                        <td>{{ drive.status }}</td>
+                        <td>
+                            <a href="{{ url_for('view_applicants', drive_id=drive.id) }}" class="btn btn-dark btn-sm">Applicants</a>
+                            <a href="{{ url_for('edit_drive', drive_id=drive.id) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ url_for('close_drive', drive_id=drive.id) }}" class="btn btn-warning btn-sm">Close</a>
+                            <a href="{{ url_for('delete_drive', drive_id=drive.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No placement drives created yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

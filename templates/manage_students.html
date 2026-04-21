@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Students{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Search Students</h2>
+
+<form method="GET" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Search by name, ID, or contact" value="{{ q }}">
+        <button class="btn btn-dark" type="submit">Search</button>
+    </div>
+</form>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if students %}
+            <table class="table table-bordered table-striped">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Department</th>
+                        <th>CGPA</th>
+                        <th>Blacklisted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.full_name }}</td>
+                        <td>{{ student.contact }}</td>
+                        <td>{{ student.department }}</td>
+                        <td>{{ student.cgpa }}</td>
+                        <td>{{ student.blacklisted }}</td>
+                        <td>
+                            <a href="{{ url_for('toggle_student_blacklist', student_id=student.id) }}" 
+                               class="btn btn-sm btn-warning">
+                                Toggle Blacklist
+                            </a>
+
+                            <a href="{{ url_for('toggle_user_active', user_id=student.user_id) }}" 
+                               class="btn btn-sm btn-danger">
+                                Toggle Active
+                            </a>
+                            <a href="{{ url_for('delete_student', student_id=student.id) }}" 
+                               class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('Are you sure?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        {% else %}
+            <p>No students found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

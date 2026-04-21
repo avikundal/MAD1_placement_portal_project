@@ -1,0 +1,35 @@
+_{% extends "base.html" %}
+{% block title %}Edit Student Profile{% endblock %}
+{% block content %}
+<div class="card shadow">
+    <div class="card-body">
+        <h2>Edit Student Profile</h2>
+        {% if success %}
+            <div class="alert alert-success">{{ success }}</div>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" name="full_name" class="form-control" value="{{ student.full_name }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contact</label>
+                <input type="text" name="contact" class="form-control" value="{{ student.contact }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Department</label>
+                <input type="text" name="department" class="form-control" value="{{ student.department }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">CGPA</label>
+                <input type="number" step="0.01" name="cgpa" class="form-control" value="{{ student.cgpa }}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Resume</label>
+                <input type="file" name="resume" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

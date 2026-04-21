@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Company Dashboard{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <h2>Company Dashboard</h2>
+        <p><strong>Email:</strong> {{ email }}</p>
+        {% if company %}
+            <p><strong>Company Name:</strong> {{ company.company_name }}</p>
+            <p><strong>HR Contact:</strong> {{ company.hr_contact }}</p>
+            <p><strong>Website:</strong> {{ company.website }}</p>
+            <p><strong>Approval Status:</strong> {{ company.approval_status }}</p>
+
+            <div class="row my-3">
+                <div class="col-md-4 mb-3"><div class="card"><div class="card-body"><h6>Total Drives</h6><h3>{{ total_drives }}</h3></div></div></div>
+                <div class="col-md-4 mb-3"><div class="card"><div class="card-body"><h6>Approved Drives</h6><h3>{{ approved_drives }}</h3></div></div></div>
+                <div class="col-md-4 mb-3"><div class="card"><div class="card-body"><h6>Total Applicants</h6><h3>{{ total_applicants }}</h3></div></div></div>
+            </div>
+
+            {% if company.approval_status == "approved" %}
+                <a href="{{ url_for('create_drive') }}" class="btn btn-primary">Create Placement Drive</a>
+                <a href="{{ url_for('view_company_drives') }}" class="btn btn-dark">View My Drives</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}All Applications{% endblock %}
+{% block content %}
+<h2 class="mb-4">All Applications</h2>
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Company</th>
+                    <th>Drive</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                {% set drive = drives.get(app.drive_id) %}
+                {% set student = students.get(app.student_id) %}
+                <tr>
+                    <td>{{ app.id }}</td>
+                    <td>{% if student %}{{ student.full_name }}{% endif %}</td>
+                    <td>
+                        {% if drive and companies.get(drive.company_id) %}
+                            {{ companies.get(drive.company_id).company_name }}
+                        {% endif %}
+                    </td>
+                    <td>{% if drive %}{{ drive.job_title }}{% endif %}</td>
+                    <td>{{ app.application_date }}</td>
+                    <td>{{ app.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

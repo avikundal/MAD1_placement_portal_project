@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Placement Portal{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1 class="mb-3">Placement Portal Application</h1>
+    <p class="lead">Admin, Companies, and Students can use this portal for placement activities.</p>
+    <a href="{{ url_for('login') }}" class="btn btn-primary mt-3 me-2">Login</a>
+    <a href="{{ url_for('register_student') }}" class="btn btn-success mt-3 me-2">Student Register</a>
+    <a href="{{ url_for('register_company') }}" class="btn btn-warning mt-3">Company Register</a>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Applicants{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Applicants for {{ drive.job_title }}</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if applications %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Student Name</th>
+                        <th>Contact</th>
+                        <th>Department</th>
+                        <th>CGPA</th>
+                        <th>Resume</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                    {% set student = students.get(app.student_id) %}
+                    <tr>
+                        <td>{{ app.id }}</td>
+                        <td>{% if student %}{{ student.full_name }}{% endif %}</td>
+                        <td>{% if student %}{{ student.contact }}{% endif %}</td>
+                        <td>{% if student %}{{ student.department }}{% endif %}</td>
+                        <td>{% if student %}{{ student.cgpa }}{% endif %}</td>
+                        <td>{% if student and student.resume_filename %}<a href="{{ url_for('uploaded_resume', filename=student.resume_filename) }}" target="_blank">View</a>{% else %}No resume{% endif %}</td>
+                        <td>{{ app.status }}</td>
+                        <td>
+                            <a href="{{ url_for('update_application_status', application_id=app.id, new_status='shortlisted') }}" class="btn btn-warning btn-sm">Shortlist</a>
+                            <a href="{{ url_for('update_application_status', application_id=app.id, new_status='selected') }}" class="btn btn-success btn-sm">Select</a>
+                            <a href="{{ url_for('update_application_status', application_id=app.id, new_status='rejected') }}" class="btn btn-danger btn-sm">Reject</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No applications received for this drive yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

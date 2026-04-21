@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}My Applications{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">My Applications</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if applications %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Applied On</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                    <tr>
+                        <td>{{ app.id }}</td>
+                        <td>
+                            {% set drive = drives.get(app.drive_id) %}
+                            {% if drive and companies.get(drive.company_id) %}
+                                {{ companies.get(drive.company_id).company_name }}
+                            {% else %}
+                                Unknown Company
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if drive %}
+                                {{ drive.job_title }}
+                            {% endif %}
+                        </td>
+                        <td>{{ app.application_date }}</td>
+                        <td>{{ app.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>You have not applied to any drives yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
